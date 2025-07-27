@@ -1,50 +1,53 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.1.0"
-    id("org.jetbrains.intellij.platform") version "2.5.0"
+    id("org.jetbrains.kotlin.jvm") version "1.9.22"  // Latest stable Kotlin version
+    id("org.jetbrains.intellij") version "1.17.2"     // Using the stable intellij plugin
 }
 
-group = "com.example"
+group = "io.github.baddel73.dots"
 version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    intellijPlatform {
-        defaultRepositories()
-    }
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
-dependencies {
-    intellijPlatform {
-        create("IC", "2025.1")
-        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
-
-        // Add necessary plugin dependencies for compilation here, example:
-        // bundledPlugin("com.intellij.java")
-    }
-}
-
-intellijPlatform {
-    pluginConfiguration {
-        ideaVersion {
-            sinceBuild = "251"
-        }
-
-        changeNotes = """
-      Initial version
-    """.trimIndent()
-    }
+// Configure Java and Kotlin compatibility
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks {
-    // Set the JVM compatibility versions
-    withType<JavaCompile> {
-        sourceCompatibility = "21"
-        targetCompatibility = "21"
-    }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "21"
+        kotlinOptions {
+            jvmTarget = "17"
+            languageVersion = "1.9"
+            apiVersion = "1.9"
+        }
     }
+
+    patchPluginXml {
+        sinceBuild.set("231")
+        untilBuild.set("251.*")
+    }
+
+    signPlugin {
+        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
+        privateKey.set(System.getenv("PRIVATE_KEY"))
+        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+    }
+
+    publishPlugin {
+        token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+}
+
+intellij {
+    version.set("2023.3")
+    type.set("IC") // IntelliJ IDEA Community Edition
+
+    plugins.set(listOf(
+        "com.intellij.java",
+        "org.jetbrains.kotlin"
+    ))
 }

@@ -1,0 +1,117 @@
+{
+  package="io.github.baddel73.dots.language"
+  parserClass="io.github.baddel73.dots.language.DotsParser"
+
+  psiPackage="io.github.baddel73.dots.language.psi"
+  psiImplPackage="io.github.baddel73.dots.language.psi.impl"
+  psiClassPrefix="Dots"
+
+  elementTypeHolderClass="io.github.baddel73.dots.language.psi.DotsTypes"
+  elementTypeClass="io.github.baddel73.dots.language.DotsElementType"
+  tokenTypeClass="io.github.baddel73.dots.language.DotsTokenType"
+
+  generatePsi="true"
+}
+
+dotsFile ::= (structDefinition | enumDefinition)*
+
+// Struct definition with optional attributes
+structDefinition ::= STRUCT IDENTIFIER_TOKEN structAttributes? structBody
+
+structAttributes ::= LBRACK structAttribute (COMMA structAttribute)* RBRACK
+
+structAttribute ::= CACHED EQ FALSE 
+                 | CLEANUP 
+                 | SUBSTRUCT_ONLY 
+                 | PERSISTENT 
+                 | INTERNAL
+
+structBody ::= LBRACE structProperty* RBRACE
+
+// Struct property: number: [key]? type propertyName;
+structProperty ::= NUMBER COLON propertyKey? typeReference IDENTIFIER_TOKEN SEMICOLON
+
+propertyKey ::= LBRACK KEY RBRACK
+
+// Type system
+typeReference ::= primitiveType | vectorType | customType
+
+primitiveType ::= BOOL | INT8 | INT16 | INT32 | INT64 
+               | UINT8 | UINT16 | UINT32 | UINT64
+               | FLOAT32 | FLOAT64 | FLOAT128
+               | DURATION | TIME_POINT | STEADY_TIMEPOINT
+               | STRING | PROPERTY_SET
+
+vectorType ::= VECTOR LT typeReference GT
+
+customType ::= IDENTIFIER_TOKEN
+
+// Enum definition
+enumDefinition ::= ENUM IDENTIFIER_TOKEN enumBody
+
+enumBody ::= LBRACE enumMember* RBRACE
+
+// Enum member: number: memberName,?
+enumMember ::= NUMBER COLON IDENTIFIER_TOKEN COMMA?
+
+////////////////////
+// Tokens Section //
+////////////////////
+
+// Keywords
+STRUCT           ::= 'struct'
+ENUM             ::= 'enum'
+
+// Struct attributes
+CACHED           ::= 'cached'
+CLEANUP          ::= 'cleanup'
+SUBSTRUCT_ONLY   ::= 'substruct_only'
+PERSISTENT       ::= 'persistent'
+INTERNAL         ::= 'internal'
+
+// Property attributes
+KEY              ::= 'key'
+
+// Primitive types
+BOOL             ::= 'bool'
+INT8             ::= 'int8'
+INT16            ::= 'int16'
+INT32            ::= 'int32'
+INT64            ::= 'int64'
+UINT8            ::= 'uint8'
+UINT16           ::= 'uint16'
+UINT32           ::= 'uint32'
+UINT64           ::= 'uint64'
+FLOAT32          ::= 'float32'
+FLOAT64          ::= 'float64'
+FLOAT128         ::= 'float128'
+DURATION         ::= 'duration'
+TIME_POINT       ::= 'time_point'
+STEADY_TIMEPOINT ::= 'steady_timepoint'
+STRING           ::= 'string'
+PROPERTY_SET     ::= 'property_set'
+
+// Collection types
+VECTOR           ::= 'vector'
+
+// Operators and punctuation
+EQ               ::= '='
+LT               ::= '<'
+GT               ::= '>'
+COLON            ::= ':'
+SEMICOLON        ::= ';'
+COMMA            ::= ','
+
+// Brackets
+LBRACE           ::= '{'
+RBRACE           ::= '}'
+LBRACK           ::= '['
+RBRACK           ::= ']'
+
+// Literals
+FALSE            ::= 'false'
+TRUE             ::= 'true'
+
+// Identifiers and numbers
+IDENTIFIER_TOKEN
+NUMBER

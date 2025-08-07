@@ -14,5 +14,14 @@
             fieldName="INSTANCE"
             language="DOTS"
             extensions="dots"/>
+        <lang.syntaxHighlighterFactory
+                language="DOTS"
+                implementationClass="io.github.baddel73.dots.language.DotsSyntaxHighlighterFactory"/>
+        <lang.parserDefinition
+                language="DOTS"
+                implementationClass="io.github.baddel73.dots.language.DotsParserDefinition"/>
+        <colorSettingsPage
+                language="DOTS"
+                implementation="io.github.baddel73.dots.language.DotsColorSettingsPage"/>
     </extensions>
 </idea-plugin>

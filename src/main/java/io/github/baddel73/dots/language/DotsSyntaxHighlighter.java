@@ -12,6 +12,12 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
 
 public class DotsSyntaxHighlighter extends SyntaxHighlighterBase {
 
+    // Define keys for comments
+    public static final TextAttributesKey LINE_COMMENT =
+            createTextAttributesKey("DOTS_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
+    public static final TextAttributesKey BLOCK_COMMENT =
+            createTextAttributesKey("DOTS_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT);
+            
     // Define text attribute keys for different token types
     public static final TextAttributesKey KEYWORD =
             createTextAttributesKey("DOTS_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
@@ -46,6 +52,8 @@ public class DotsSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey BOOLEAN =
             createTextAttributesKey("DOTS_BOOLEAN", DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL);
 
+    private static final TextAttributesKey[] LINE_COMMENT_KEYS = new TextAttributesKey[]{LINE_COMMENT};
+    private static final TextAttributesKey[] BLOCK_COMMENT_KEYS = new TextAttributesKey[]{BLOCK_COMMENT};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] TYPE_KEYS = new TextAttributesKey[]{TYPE};
@@ -68,6 +76,16 @@ public class DotsSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
+        // Add cases for comments at the top for clarity
+        if (tokenType.equals(DotsTypes.LINE_COMMENT)) {
+            return LINE_COMMENT_KEYS;
+        }
+        if (tokenType.equals(DotsTypes.BLOCK_COMMENT)) {
+            return BLOCK_COMMENT_KEYS;
+        }
+    
+        // ... rest of the getTokenHighlights method
+        
         // Keywords: struct, enum
         if (tokenType.equals(DotsTypes.STRUCT) || tokenType.equals(DotsTypes.ENUM)) {
             return KEYWORD_KEYS;

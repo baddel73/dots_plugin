@@ -54,10 +54,11 @@ enumBody ::= LBRACE enumMember* RBRACE
 // Enum member: number: memberName,?
 enumMember ::= NUMBER COLON IDENTIFIER_TOKEN COMMA?
 
-////////////////////
+///////////////////////////////////////////////////////////
 // Tokens Section //
-////////////////////
+///////////////////////////////////////////////////////////
 
+// ---- Simple tokens defined by Grammar-Kit ----
 // Keywords
 STRUCT           ::= 'struct'
 ENUM             ::= 'enum'
@@ -112,6 +113,8 @@ RBRACK           ::= ']'
 FALSE            ::= 'false'
 TRUE             ::= 'true'
 
-// Identifiers and numbers
+// ---- Complex tokens defined in DotsLexerGenerator.flex ----
 IDENTIFIER_TOKEN
 NUMBER
+LINE_COMMENT
+BLOCK_COMMENT

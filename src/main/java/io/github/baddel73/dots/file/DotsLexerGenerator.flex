@@ -35,8 +35,8 @@ NUMBER_SUFFIX = [LlUuFf]|[uU][lL]|[lL][lL]|[uU][lL][lL]
 
 <YYINITIAL> {
   {WHITE_SPACE}         { return com.intellij.psi.TokenType.WHITE_SPACE; }
-  {LINE_COMMENT}        { return com.intellij.psi.TokenType.WHITE_SPACE; }
-  {BLOCK_COMMENT}       { return com.intellij.psi.TokenType.WHITE_SPACE; }
+  {LINE_COMMENT}        { return DotsTypes.LINE_COMMENT; }
+  {BLOCK_COMMENT}       { return DotsTypes.BLOCK_COMMENT; }
 
   // Keywords
   "struct"              { return DotsTypes.STRUCT; }

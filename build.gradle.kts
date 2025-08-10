@@ -41,6 +41,19 @@ sourceSets {
 }
 
 tasks {
+    // Ensure generated sources are created before both Kotlin and Java compilation
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        dependsOn("generateLexer", "generateParser")
+    }
+    withType<JavaCompile>().configureEach {
+        dependsOn("generateLexer", "generateParser")
+    }
+
+    // Also wire into the classes lifecycle (covers IDE actions invoking 'classes')
+    named("classes") {
+        dependsOn("generateLexer", "generateParser")
+    }
+
     withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
@@ -56,6 +69,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("241")
+        untilBuild.set("252.*") // allow 2025.2
     }
 
     named<org.jetbrains.grammarkit.tasks.GenerateLexerTask>("generateLexer") {
@@ -86,10 +100,12 @@ tasks {
     runPluginVerifier {
         ideVersions.set(
             listOf(
-                "IC-241", // 2024.1
-                "IC-242", // 2024.2
-                "IC-243", // 2024.3
-                "IC-251"  // 2025.1
+                "IC-2024.1",
+                "IC-2024.2",
+                "IC-2024.3",
+                "IC-2025.1",
+                "IC-2025.2",
+                "IU-2025.2"
             )
         )
     }

@@ -1,6 +1,8 @@
-﻿plugins {
+﻿import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.25"
+    id("org.jetbrains.kotlin.jvm") version "2.1.0"
     id("org.jetbrains.intellij") version "1.17.4"
     id("org.jetbrains.grammarkit") version "2022.3.2.2"
 }
@@ -12,6 +14,13 @@ repositories {
     mavenCentral()
     maven { url = uri("https://cache-redirector.jetbrains.com/intellij-dependencies") }
     maven { url = uri("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies") }
+}
+
+// Explicitly set Java toolchain to ensure consistent Java version
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 intellij {
@@ -35,17 +44,18 @@ tasks {
     withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
+        // Ensure we're using the correct Java version
+        options.release.set(17)
     }
 
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "17"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 
     patchPluginXml {
         sinceBuild.set("241")
-        untilBuild.set("241.*")
     }
 
     named<org.jetbrains.grammarkit.tasks.GenerateLexerTask>("generateLexer") {
@@ -59,7 +69,7 @@ tasks {
         targetRootOutputDir.set(file("src/main/gen"))
         pathToParser.set("io/github/baddel73/dots/language/DotsParser.java")
         pathToPsiRoot.set("io/github/baddel73/dots/language/psi")
-        purgeOldFiles.set(true)  // Add this line
+        purgeOldFiles.set(true)
     }
 
     compileJava {
@@ -69,8 +79,18 @@ tasks {
     clean {
         delete("src/main/gen")
         doLast {
-            // Ensure the directory is completely removed
             file("src/main/gen").deleteRecursively()
         }
+    }
+
+    runPluginVerifier {
+        ideVersions.set(
+            listOf(
+                "IC-241", // 2024.1
+                "IC-242", // 2024.2
+                "IC-243", // 2024.3
+                "IC-251"  // 2025.1
+            )
+        )
     }
 }

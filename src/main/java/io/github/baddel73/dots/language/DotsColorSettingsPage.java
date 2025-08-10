@@ -13,13 +13,26 @@ import java.util.Map;
 
 public class DotsColorSettingsPage implements ColorSettingsPage {
 
-    // Empty descriptors for now during debugging
-    private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{};
+    private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
+            new AttributesDescriptor("Line comment", DotsSyntaxHighlighter.LINE_COMMENT),
+            new AttributesDescriptor("Block comment", DotsSyntaxHighlighter.BLOCK_COMMENT),
+            new AttributesDescriptor("Keyword", DotsSyntaxHighlighter.KEYWORD),
+            new AttributesDescriptor("Type", DotsSyntaxHighlighter.TYPE),
+            new AttributesDescriptor("Number", DotsSyntaxHighlighter.NUMBER),
+            new AttributesDescriptor("Identifier", DotsSyntaxHighlighter.IDENTIFIER),
+            new AttributesDescriptor("Operator", DotsSyntaxHighlighter.OPERATOR),
+            new AttributesDescriptor("Brackets", DotsSyntaxHighlighter.BRACKETS),
+            new AttributesDescriptor("Braces", DotsSyntaxHighlighter.BRACES),
+            new AttributesDescriptor("Semicolon", DotsSyntaxHighlighter.SEMICOLON),
+            new AttributesDescriptor("Comma", DotsSyntaxHighlighter.COMMA),
+            new AttributesDescriptor("Attribute", DotsSyntaxHighlighter.ATTRIBUTE),
+            new AttributesDescriptor("Boolean", DotsSyntaxHighlighter.BOOLEAN)
+    };
 
     @Nullable
     @Override
     public Icon getIcon() {
-        return null;
+        return null; // You can set an icon for your language here
     }
 
     @NotNull
@@ -31,7 +44,21 @@ public class DotsColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public String getDemoText() {
-        return "cached=false";
+        return """
+                // This is a line comment.
+                /*
+                  This is a block comment.
+                */
+                internal persistent struct MyStruct {
+                    [key] int32 my_number = -123;
+                    bool my_boolean = true;
+                    string some_text = "hello";
+                };
+                
+                enum MyEnum {
+                    ONE = 1,
+                    TWO = 2,
+                }""";
     }
 
     @Nullable

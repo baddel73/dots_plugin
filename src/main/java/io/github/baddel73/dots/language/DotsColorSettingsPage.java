@@ -5,11 +5,13 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
+import io.github.baddel73.dots.file.DotsIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.util.Map;
+import java.util.HashMap;
 
 public class DotsColorSettingsPage implements ColorSettingsPage {
 
@@ -26,13 +28,13 @@ public class DotsColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Semicolon", DotsSyntaxHighlighter.SEMICOLON),
             new AttributesDescriptor("Comma", DotsSyntaxHighlighter.COMMA),
             new AttributesDescriptor("Attribute", DotsSyntaxHighlighter.ATTRIBUTE),
-            new AttributesDescriptor("Boolean", DotsSyntaxHighlighter.BOOLEAN)
+            new AttributesDescriptor("Boolean", DotsSyntaxHighlighter.BOOLEAN),
+            new AttributesDescriptor("Custom type", DotsSyntaxHighlighter.CUSTOM_TYPE)
     };
 
-    @Nullable
     @Override
-    public Icon getIcon() {
-        return null; // You can set an icon for your language here
+    public @Nullable Icon getIcon() {
+        return DotsIcons.FILE;
     }
 
     @NotNull
@@ -49,22 +51,27 @@ public class DotsColorSettingsPage implements ColorSettingsPage {
                 /*
                   This is a block comment.
                 */
-                internal persistent struct MyStruct {
-                    [key] int32 my_number = -123;
-                    bool my_boolean = true;
-                    string some_text = "hello";
-                };
                 
                 enum MyEnum {
-                    ONE = 1,
-                    TWO = 2,
-                }""";
+                    1: first,
+                    2: second,
+                }
+                
+                struct MyStruct [substruct_only] {
+                    1: [key] int32 my_number;
+                    2: bool my_boolean;
+                    3: string some_text;
+                    4: <custom>MyEnum</custom> my_enum;
+                };""";
     }
 
     @Nullable
     @Override
     public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
-        return null;
+        Map<String, TextAttributesKey> map = new HashMap<>();
+        // ... other mappings
+        map.put("custom", DotsSyntaxHighlighter.CUSTOM_TYPE);
+        return map;
     }
 
     @NotNull

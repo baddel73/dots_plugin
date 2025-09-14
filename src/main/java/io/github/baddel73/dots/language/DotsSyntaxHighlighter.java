@@ -17,44 +17,48 @@ public class DotsSyntaxHighlighter extends SyntaxHighlighterBase {
             createTextAttributesKey("DOTS_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey BLOCK_COMMENT =
             createTextAttributesKey("DOTS_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT);
-            
+
     // Define text attribute keys for different token types
     public static final TextAttributesKey KEYWORD =
             createTextAttributesKey("DOTS_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
-    
+
     public static final TextAttributesKey TYPE =
             createTextAttributesKey("DOTS_TYPE", DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL);
-    
+
+    public static final TextAttributesKey CUSTOM_TYPE =
+            createTextAttributesKey("DOTS_CUSTOM_TYPE", DefaultLanguageHighlighterColors.CLASS_NAME);
+
+    private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
+
     public static final TextAttributesKey NUMBER =
             createTextAttributesKey("DOTS_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
-    
+
     public static final TextAttributesKey IDENTIFIER =
             createTextAttributesKey("DOTS_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER);
-    
+
     public static final TextAttributesKey OPERATOR =
             createTextAttributesKey("DOTS_OPERATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
-    
+
     public static final TextAttributesKey BRACKETS =
             createTextAttributesKey("DOTS_BRACKETS", DefaultLanguageHighlighterColors.BRACKETS);
-    
+
     public static final TextAttributesKey BRACES =
             createTextAttributesKey("DOTS_BRACES", DefaultLanguageHighlighterColors.BRACES);
-    
+
     public static final TextAttributesKey SEMICOLON =
             createTextAttributesKey("DOTS_SEMICOLON", DefaultLanguageHighlighterColors.SEMICOLON);
-    
+
     public static final TextAttributesKey COMMA =
             createTextAttributesKey("DOTS_COMMA", DefaultLanguageHighlighterColors.COMMA);
-    
+
     public static final TextAttributesKey ATTRIBUTE =
             createTextAttributesKey("DOTS_ATTRIBUTE", DefaultLanguageHighlighterColors.METADATA);
-    
+
     public static final TextAttributesKey BOOLEAN =
             createTextAttributesKey("DOTS_BOOLEAN", DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL);
 
     private static final TextAttributesKey[] LINE_COMMENT_KEYS = new TextAttributesKey[]{LINE_COMMENT};
     private static final TextAttributesKey[] BLOCK_COMMENT_KEYS = new TextAttributesKey[]{BLOCK_COMMENT};
-    private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] TYPE_KEYS = new TextAttributesKey[]{TYPE};
     private static final TextAttributesKey[] NUMBER_KEYS = new TextAttributesKey[]{NUMBER};

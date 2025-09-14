@@ -21,7 +21,7 @@
                 language="DOTS"
                 implementationClass="io.github.baddel73.dots.language.DotsParserDefinition"/>
         <colorSettingsPage
-                language="DOTS"
                 implementation="io.github.baddel73.dots.language.DotsColorSettingsPage"/>
+        <annotator language="DOTS" implementationClass="io.github.baddel73.dots.language.DotsAnnotator"/>
     </extensions>
 </idea-plugin>

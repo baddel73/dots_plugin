@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "io.github.baddel73.dots"
-version = "1.0-SNAPSHOT"
+version = "0.1"
 
 repositories {
     mavenCentral()
@@ -16,7 +16,6 @@ repositories {
     maven { url = uri("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies") }
 }
 
-// Explicitly set Java toolchain to ensure consistent Java version
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
@@ -41,7 +40,6 @@ sourceSets {
 }
 
 tasks {
-    // Ensure generated sources are created before both Kotlin and Java compilation
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         dependsOn("generateLexer", "generateParser")
     }
@@ -49,7 +47,6 @@ tasks {
         dependsOn("generateLexer", "generateParser")
     }
 
-    // Also wire into the classes lifecycle (covers IDE actions invoking 'classes')
     named("classes") {
         dependsOn("generateLexer", "generateParser")
     }

@@ -16,7 +16,10 @@
 dotsFile ::= (structDefinition | enumDefinition)*
 
 // Struct definition with optional attributes
-structDefinition ::= STRUCT IDENTIFIER_TOKEN structAttributes? structBody
+structDefinition ::= STRUCT IDENTIFIER_TOKEN structAttributes? structBody {
+  mixin="io.github.baddel73.dots.language.psi.impl.DotsNamedElementImpl"
+  implements="io.github.baddel73.dots.language.psi.DotsNamedElement"
+}
 
 structAttributes ::= LBRACK structAttribute (COMMA structAttribute)* RBRACK
 
@@ -39,15 +42,21 @@ typeReference ::= primitiveType | vectorType | customType
 primitiveType ::= BOOL | INT8 | INT16 | INT32 | INT64 
                | UINT8 | UINT16 | UINT32 | UINT64
                | FLOAT32 | FLOAT64 | FLOAT128
-               | DURATION | TIME_POINT | STEADY_TIMEPOINT
-               | STRING | PROPERTY_SET
+               | DURATION | TIMEPOINT | STEADY_TIMEPOINT
+               | STRING | PROPERTY_SET | UUID
 
 vectorType ::= VECTOR LT typeReference GT
 
-customType ::= IDENTIFIER_TOKEN
+customType ::= IDENTIFIER_TOKEN {
+  mixin="io.github.baddel73.dots.language.psi.impl.DotsCustomTypeMixin"
+  implements="io.github.baddel73.dots.language.psi.DotsCustomTypeReference"
+}
 
 // Enum definition
-enumDefinition ::= ENUM IDENTIFIER_TOKEN enumBody
+enumDefinition ::= ENUM IDENTIFIER_TOKEN enumBody {
+  mixin="io.github.baddel73.dots.language.psi.impl.DotsNamedElementImpl"
+  implements="io.github.baddel73.dots.language.psi.DotsNamedElement"
+}
 
 enumBody ::= LBRACE enumMember* RBRACE
 
@@ -74,6 +83,7 @@ INTERNAL         ::= 'internal'
 KEY              ::= 'key'
 
 // Primitive types
+UUID             ::= 'uuid'
 BOOL             ::= 'bool'
 INT8             ::= 'int8'
 INT16            ::= 'int16'
@@ -87,7 +97,7 @@ FLOAT32          ::= 'float32'
 FLOAT64          ::= 'float64'
 FLOAT128         ::= 'float128'
 DURATION         ::= 'duration'
-TIME_POINT       ::= 'time_point'
+TIMEPOINT       ::= 'timepoint'
 STEADY_TIMEPOINT ::= 'steady_timepoint'
 STRING           ::= 'string'
 PROPERTY_SET     ::= 'property_set'

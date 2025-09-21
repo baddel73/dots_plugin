@@ -96,14 +96,14 @@ public class DotsSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         
         // Primitive types
-        if (tokenType.equals(DotsTypes.BOOL) ||
+        if (tokenType.equals(DotsTypes.UUID) || tokenType.equals(DotsTypes.BOOL) ||
             tokenType.equals(DotsTypes.INT_8) || tokenType.equals(DotsTypes.INT_16) || 
             tokenType.equals(DotsTypes.INT_32) || tokenType.equals(DotsTypes.INT_64) ||
             tokenType.equals(DotsTypes.UINT_8) || tokenType.equals(DotsTypes.UINT_16) || 
             tokenType.equals(DotsTypes.UINT_32) || tokenType.equals(DotsTypes.UINT_64) ||
             tokenType.equals(DotsTypes.FLOAT_32) || tokenType.equals(DotsTypes.FLOAT_64) || 
             tokenType.equals(DotsTypes.FLOAT_128) ||
-            tokenType.equals(DotsTypes.DURATION) || tokenType.equals(DotsTypes.TIME_POINT) || 
+            tokenType.equals(DotsTypes.DURATION) || tokenType.equals(DotsTypes.TIMEPOINT) || 
             tokenType.equals(DotsTypes.STEADY_TIMEPOINT) ||
             tokenType.equals(DotsTypes.STRING) || tokenType.equals(DotsTypes.PROPERTY_SET) ||
             tokenType.equals(DotsTypes.VECTOR)) {

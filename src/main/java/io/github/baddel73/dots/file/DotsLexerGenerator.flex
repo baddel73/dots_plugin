@@ -53,6 +53,7 @@ NUMBER_SUFFIX = [LlUuFf]|[uU][lL]|[lL][lL]|[uU][lL][lL]
   "key"                 { return DotsTypes.KEY; }
 
   // Primitive types - using the correct constant names from DotsTypes
+  "uuid"                { return DotsTypes.UUID; }
   "bool"                { return DotsTypes.BOOL; }
   "int8"                { return DotsTypes.INT_8; }
   "int16"               { return DotsTypes.INT_16; }
@@ -66,7 +67,7 @@ NUMBER_SUFFIX = [LlUuFf]|[uU][lL]|[lL][lL]|[uU][lL][lL]
   "float64"             { return DotsTypes.FLOAT_64; }
   "float128"            { return DotsTypes.FLOAT_128; }
   "duration"            { return DotsTypes.DURATION; }
-  "time_point"          { return DotsTypes.TIME_POINT; }
+  "timepoint"           { return DotsTypes.TIMEPOINT; }
   "steady_timepoint"    { return DotsTypes.STEADY_TIMEPOINT; }
   "string"              { return DotsTypes.STRING; }
   "property_set"        { return DotsTypes.PROPERTY_SET; }

@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "io.github.baddel73.dots"
-version = "0.2"
+version = "0.2.1"
 
 repositories {
     mavenCentral()
@@ -66,7 +66,8 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("241")
-        untilBuild.set("252.*") // allow 2025.2
+        // Extend compatibility to the 253 IDE build line (e.g., Rider RD-253.*)
+        untilBuild.set("253.*")
     }
 
     named<org.jetbrains.grammarkit.tasks.GenerateLexerTask>("generateLexer") {

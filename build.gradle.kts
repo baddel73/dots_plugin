@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "io.github.baddel73.dots"
-version = "0.2.2"
+version = "0.2.3"
 
 repositories {
     mavenCentral()
@@ -66,7 +66,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("241")
-        untilBuild.set("261.*")
+        untilBuild.set("262.*")
     }
 
     named<org.jetbrains.grammarkit.tasks.GenerateLexerTask>("generateLexer") {
@@ -89,9 +89,6 @@ tasks {
 
     clean {
         delete("src/main/gen")
-        doLast {
-            file("src/main/gen").deleteRecursively()
-        }
     }
 
     runPluginVerifier {
